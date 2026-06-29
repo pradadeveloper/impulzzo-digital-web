@@ -3,6 +3,7 @@ import { Inter, Playfair_Display } from "next/font/google";
 import JsonLd from "./components/JsonLd";
 import GoogleAnalytics from "./components/GoogleAnalytics";
 import WhatsAppButton from "./components/WhatsAppButton";
+import CookieBanner from "./components/CookieBanner";
 import "./globals.css";
 
 const inter = Inter({
@@ -88,6 +89,7 @@ export default function RootLayout({
         <JsonLd />
         {children}
         <WhatsAppButton />
+        <CookieBanner />
       </body>
     </html>
   );
