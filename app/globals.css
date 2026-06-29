@@ -1,0 +1,97 @@
+@import "tailwindcss";
+
+@theme {
+  /* Brand Colors */
+  --color-blue: #2563EB;
+  --color-blue-light: #3B82F6;
+  --color-blue-dark: #1D4ED8;
+  --color-dark: #0A0A0A;
+  --color-surface: #111111;
+  --color-surface-2: #1A1A1A;
+  --color-muted: #A0A0A0;
+
+  /* Fonts */
+  --font-heading: var(--font-playfair), 'Playfair Display', Georgia, serif;
+  --font-body: var(--font-inter), 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #0A0A0A;
+  color: #FFFFFF;
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: #0A0A0A;
+}
+::-webkit-scrollbar-thumb {
+  background: #2563EB;
+  border-radius: 2px;
+}
+
+::selection {
+  background: rgba(37, 99, 235, 0.3);
+  color: #ffffff;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+.marquee {
+  display: flex;
+  width: 100%;
+  min-height: 3.75rem;
+  align-items: center;
+}
+
+.marquee__track {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  animation: marquee 28s linear infinite;
+}
+
+.marquee__item {
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+  font-size: 0.95rem;
+  color: #ffffff;
+}
+
+.marquee__item::after {
+  content: ' • ';
+  color: #3B82F6;
+  margin-left: 0.8rem;
+}
+
+.marquee__track:last-child .marquee__item::after {
+  content: ' • ';
+}
+
+.group:hover .marquee__track {
+  animation-play-state: paused;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
