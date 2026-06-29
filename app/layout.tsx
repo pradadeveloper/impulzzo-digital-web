@@ -19,6 +19,7 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.impulzzodigital.com"),
   title: "Impulzzo Digital — Agencia Digital Premium en Colombia",
   description:
     "Construimos empresas preparadas para la era de la Inteligencia Artificial. Desarrollo web, Shopify Expert, automatización, chatbots IA y marketing digital.",
