@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
 import JsonLd from "./components/JsonLd";
 import GoogleAnalytics from "./components/GoogleAnalytics";
+import WhatsAppButton from "./components/WhatsAppButton";
 import "./globals.css";
 
 const inter = Inter({
@@ -86,6 +87,7 @@ export default function RootLayout({
         <GoogleAnalytics />
         <JsonLd />
         {children}
+        <WhatsAppButton />
       </body>
     </html>
   );
