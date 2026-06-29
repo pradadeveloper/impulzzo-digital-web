@@ -151,10 +151,10 @@ export default function Footer() {
             <ul className="space-y-3 mb-6">
               <li>
                 <a
-                  href="mailto:juanfelipepradaing@gmail.com"
+                  href="mailto:hola@impulzzodigital.com"
                   className="text-muted hover:text-white text-sm transition-colors duration-200 cursor-pointer"
                 >
-                  juanfelipepradaing@gmail.com
+                  hola@impulzzodigital.com
                 </a>
               </li>
               <li>

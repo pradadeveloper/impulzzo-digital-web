@@ -37,22 +37,23 @@ const wordVariants: Variants = {
 // Floating particles component (client-only randomization to avoid SSR hydration mismatches)
 const FloatingParticles = () => {
   const [particles, setParticles] = useState<
-    { left: number; top: number; dx: number; dy: number; duration: number; delay: number }[]
+    { left: number; top: number; dx: number; dy: number; duration: number; delay: number; size: number; isWhite: boolean }[]
   >([]);
 
   useEffect(() => {
-    const p = Array.from({ length: 20 }).map(() => ({
+    const p = Array.from({ length: 120 }).map(() => ({
       left: Math.random() * 100,
       top: Math.random() * 100,
       dx: Math.random() * 120 - 60,
       dy: Math.random() * 120 - 60,
       duration: 12 + Math.random() * 12,
       delay: Math.random() * 4,
+      size: 2 + Math.random() * 2,
+      isWhite: Math.random() < 0.25,
     }));
     setParticles(p);
   }, []);
 
-  // Don't render anything on the server — particles are created on mount
   if (particles.length === 0) return null;
 
   return (
@@ -60,9 +61,20 @@ const FloatingParticles = () => {
       {particles.map((p, i) => (
         <motion.div
           key={i}
-          className="absolute w-1 h-1 bg-blue rounded-full opacity-20"
-          style={{ left: `${p.left}%`, top: `${p.top}%` }}
-          animate={{ x: [0, p.dx, 0], y: [0, p.dy, 0], opacity: [0.2, 0.5, 0.2] }}
+          className="absolute rounded-full"
+          style={{
+            left: `${p.left}%`,
+            top: `${p.top}%`,
+            width: `${p.size}px`,
+            height: `${p.size}px`,
+            backgroundColor: p.isWhite ? '#FFFFFF' : (Math.random() < 0.5 ? '#2563EB' : '#3B82F6'),
+            filter: `blur(${p.size > 3 ? 0.5 : 0}px) drop-shadow(0 0 ${p.size * 2}px ${p.isWhite ? 'rgba(255,255,255,0.6)' : 'rgba(59,130,246,0.8)'})`,
+          }}
+          animate={{
+            x: [0, p.dx, 0],
+            y: [0, p.dy, 0],
+            opacity: p.isWhite ? [0.2, 0.4, 0.2] : [0.4, 0.7, 0.4],
+          }}
           transition={{ duration: p.duration, repeat: Infinity, ease: "easeInOut", delay: p.delay }}
         />
       ))}
@@ -92,7 +104,7 @@ export default function Hero() {
   return (
     <section
       id="inicio"
-      className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-dark pt-20 pb-16"
+      className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-dark pt-20 pb-16 w-full"
     >
       {/* Background glows */}
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
@@ -114,7 +126,7 @@ export default function Hero() {
         }}
       />
 
-      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div className="relative z-10 w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center overflow-hidden">
         <motion.div
           variants={container}
           initial="hidden"
@@ -133,7 +145,7 @@ export default function Hero() {
           {/* Headline with reveal animation */}
           <motion.h1
             variants={item}
-            className="font-heading text-4xl sm:text-5xl lg:text-6xl xl:text-[5rem] font-bold text-white leading-[1.1] tracking-tight mb-6"
+            className="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-white leading-tight tracking-tight mb-6"
           >
             <motion.div
               variants={container}
@@ -151,7 +163,7 @@ export default function Hero() {
           {/* Subheadline */}
           <motion.p
             variants={item}
-            className="text-muted text-base sm:text-lg lg:text-xl max-w-2xl mx-auto mb-10 leading-relaxed"
+            className="text-muted text-base sm:text-lg md:text-xl max-w-xs sm:max-w-md md:max-w-2xl mx-auto mb-10 leading-relaxed"
           >
             Creamos sitios web, tiendas Shopify, automatizaciones, chatbots con IA y estrategias de marketing que generan ventas reales.
           </motion.p>
@@ -159,11 +171,11 @@ export default function Hero() {
           {/* CTAs */}
           <motion.div
             variants={item}
-            className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16"
+            className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-16 w-full sm:w-auto"
           >
             <motion.a
               href="#contacto"
-              className="inline-flex items-center gap-2 px-8 py-4 bg-blue hover:bg-blue-light text-dark font-semibold rounded-full transition-all duration-200 text-sm sm:text-base cursor-pointer shadow-lg shadow-blue/20"
+              className="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-8 py-4 bg-blue hover:bg-blue-light text-dark font-semibold rounded-full transition-all duration-200 text-sm sm:text-base cursor-pointer shadow-lg shadow-blue/20"
               whileHover={{ scale: 1.02, boxShadow: "0 20px 40px rgba(37, 99, 235, 0.3)" }}
               whileTap={{ scale: 0.98 }}
             >
@@ -181,7 +193,7 @@ export default function Hero() {
             </motion.a>
             <motion.a
               href="#casos"
-              className="inline-flex items-center px-8 py-4 border border-white/20 hover:border-blue/50 hover:text-blue text-white font-medium rounded-full transition-all duration-200 text-sm sm:text-base cursor-pointer"
+              className="inline-flex items-center justify-center w-full sm:w-auto px-8 py-4 border border-white/20 hover:border-blue/50 hover:text-blue text-white font-medium rounded-full transition-all duration-200 text-sm sm:text-base cursor-pointer"
               whileHover={{ scale: 1.02, borderColor: "rgba(37, 99, 235, 0.8)" }}
               whileTap={{ scale: 0.98 }}
             >

@@ -6,7 +6,7 @@ export default function JsonLd() {
     description: "Agencia digital especializada en IA, e-commerce y automatización",
     url: "https://impulzzo.com",
     telephone: "+573043838770",
-    email: "juanfelipepradaing@gmail.com",
+    email: "hola@impulzzodigital.com",
     address: {
       "@type": "PostalAddress",
       addressLocality: "Medellín",
